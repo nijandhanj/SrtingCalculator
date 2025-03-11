@@ -1,19 +1,19 @@
 export function add(numbers) {
     if (!numbers) return 0;
 
-
     let delimiter = /,|\n/; 
-    
-    const customDelimiterMatch = numbers.match(/^\/\/(.+)\n/);
-    if (customDelimiterMatch) {
-        delimiter = new RegExp(customDelimiterMatch[1]); 
-        numbers = numbers.replace(/^\/\/(.+)\n/, ""); 
+    if (numbers.startsWith("//")) {
+        const parts = numbers.split("\n");
+        delimiter = new RegExp(parts[0].slice(2));
+        numbers = parts[1]; 
     }
 
     const numArray = numbers.split(delimiter).map(Number);
+    
+    const negatives = numArray.filter(num => num < 0);
 
-    if (numArray.some(isNaN)) {
-        throw new Error(`Invalid number: ${numbers}`);
+    if (negatives.length > 0) {
+        throw new Error(`Negative numbers not allowed: ${negatives.join(", ")}`);
     }
 
     return numArray.reduce((sum, num) => sum + num, 0);
