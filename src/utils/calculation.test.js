@@ -1,4 +1,4 @@
-import { add } from "./calculate";
+import { add } from "./calculation";
 
 test("returns 0 for an empty string", () => {
   expect(add("")).toBe(0);
