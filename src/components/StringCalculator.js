@@ -6,12 +6,16 @@ function StringCalculator() {
   const [result, setResult] = useState(null);
 
   const handleCalculate = () => {
+
     try {
-      setResult(add(input));
+        const processedInput = input.replace(/\\n/g, "\n"); 
+        setResult(add(processedInput));
     } catch (error) {
-      setResult(error.message);
+        setResult(error.message);
     }
-  };
+};
+
+
 
   return (
     <main className="main-container">
